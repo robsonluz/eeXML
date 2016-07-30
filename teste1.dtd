@@ -1,0 +1,8 @@
+<!DOCTYPE clientes [
+<!ELEMENT clientes (cliente+)>
+<!ELEMENT cliente (nome,(e-mail|telefone+)*)>
+<!ELEMENT nome (#PCDATA)>
+<!ELEMENT e-mail (#PCDATA)>
+<!ELEMENT telefone (#PCDATA)>
+<!ATTLIST cliente id ID #REQUIRED>
+]>

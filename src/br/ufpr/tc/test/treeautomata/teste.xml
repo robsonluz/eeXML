@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!DOCTYPE clientes [
+<!ELEMENT clientes (cliente+)>
+<!ELEMENT cliente (nome,endereco,e-mail)>
+<!ELEMENT nome (#PCDATA)>
+<!ELEMENT endereco (#PCDATA)>
+<!ELEMENT e-mail (#PCDATA)>
+<!ATTLIST cliente id ID #REQUIRED>
+]>
+<root></root>

@@ -1,0 +1,17 @@
+\begin{define_tree} t
+<cliente>
+	<nome>Robson</nome>
+</cliente>
+\end{define_tree}
+
+
+\begin{define_dtd} d
+<cliente>
+	<nome>Robson</nome>
+</cliente>
+\end{define_dtd}
+
+
+\begin{updateoperators}
+insert_element(t,
+\begin{updateoperators}

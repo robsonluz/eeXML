@@ -1,0 +1,9 @@
+<?xml version="1.0"  encoding="utf-8"?>
+<clientes>
+	<cliente id="1">
+		<nome>Joao Antonio</nome>
+		<e-mail>Rua das Araucarias</e-mail>
+		<e-mail>joao_antonio@email.com</e-mail>
+		<telefone>joao_antonio@email.com</telefone>
+	</cliente>
+</clientes>

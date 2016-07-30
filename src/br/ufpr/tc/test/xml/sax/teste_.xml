@@ -1,0 +1,20 @@
+<?xml version="1.0"  encoding="utf-8"?>
+<clientes>
+	<cliente id="1">
+		<nome sb="sdf">Joao Antonio</nome>
+		<endereco>Rua das Araucarias</endereco>
+		<e-mail>joao_antonio@email.com</e-mail>
+	</cliente>
+</clientes>
+
+cliente(0)
+	@id(00)
+		data(000)
+	nome(01)
+		@sb(010)
+			data(0100)
+		data(011)			
+	endereco(02)
+		data(020)
+	e-mail(03)
+		data(030)	

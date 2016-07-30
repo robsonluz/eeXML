@@ -1,0 +1,880 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<hibernate-mapping>
+
+	<class name="edu.bj.model.BaseObject" table="OSObject">
+
+		<id name="id" column="BOLD_ID" unsaved-value="null">
+
+			<generator class="edu.bj.util.TableGeneratorLong">
+
+				<param name="table">bold_id</param>
+				<param name="column">bold_id</param>
+
+			</generator>
+
+		</id>
+
+		<property name="boldType" column="BOLD_TYPE" update="false">
+
+		</property>
+
+		<joined-subclass name="edu.bj.model.OSUser" lazy="true">
+
+			<key column="BOLD_ID" />
+
+			<property name="boldType" column="BOLD_TYPE"
+				update="false">
+
+			</property>
+
+			<property name="email" column="eMail" length="100">
+
+			</property>
+
+			<property name="isactive" column="isActive" length="10"
+				not-null="true">
+
+			</property>
+
+			<property name="name" column="name" length="40">
+
+			</property>
+
+			<property name="passwordx" column="passwordx" length="32">
+
+			</property>
+
+			<property name="userName" column="userName" length="40">
+
+			</property>
+
+			<property name="urgentUpdatePath" column="urgentUpdatePath"
+				length="255">
+
+			</property>
+
+			<bag name="groups" table="OSUser_OSGroup">
+
+				<key column="users">
+
+				</key>
+
+				<many-to-many class="edu.bj.model.OSGroup"
+					column="groups" outer-join="auto" />
+
+			</bag>
+
+		</joined-subclass>
+
+		<joined-subclass name="edu.bj.model.OSAction" lazy="true">
+
+			<key column="BOLD_ID" />
+
+			<property name="boldType" column="BOLD_TYPE"
+				update="false">
+
+			</property>
+
+			<property name="componentName" not-null="true">
+
+			</property>
+
+			<property name="description" not-null="true">
+
+			</property>
+
+			<property name="editorClassName" not-null="true">
+
+			</property>
+
+			<property name="isEntailed" not-null="true">
+
+			</property>
+
+			<property name="name" not-null="true">
+
+			</property>
+
+			<bag name="permissions" lazy="true" cascade="all">
+
+				<key column="action">
+
+				</key>
+
+				<one-to-many class="edu.bj.model.OSPermission" />
+
+			</bag>
+
+			<property name="proxyClassName" not-null="true">
+
+			</property>
+
+			<property name="revision" not-null="true">
+
+			</property>
+
+			<property name="revisionAuthor" not-null="true">
+
+			</property>
+
+			<property name="revisionDate">
+
+			</property>
+
+			<many-to-one name="specialResource" column="specialResource"
+				cascade="none" insert="false" update="false">
+
+			</many-to-one>
+
+			<many-to-one name="specialResourceKind"
+				column="specialResourceKind" cascade="none" insert="false"
+				update="false">
+
+			</many-to-one>
+
+		</joined-subclass>
+
+		<joined-subclass name="edu.bj.model.OSFilterField"
+			lazy="true">
+
+			<key column="BOLD_ID" />
+
+			<property name="boldType" column="BOLD_TYPE"
+				update="false">
+
+			</property>
+
+			<property name="backgroundColorExp" length="255">
+
+			</property>
+
+			<property name="expression" length="255">
+
+			</property>
+
+			<property name="foregroundColorExp" length="255">
+
+			</property>
+
+			<property name="title" length="255">
+
+			</property>
+
+			<property name="width" not-null="true">
+
+			</property>
+
+			<many-to-one name="filter" column="filterx">
+
+			</many-to-one>
+
+		</joined-subclass>
+
+		<joined-subclass name="edu.bj.model.OSGroup" lazy="true">
+
+			<key column="BOLD_ID" />
+
+			<property name="boldType" column="BOLD_TYPE"
+				update="false">
+
+			</property>
+
+			<property name="name" column="name" length="255">
+
+			</property>
+
+			<property name="comment" column="comment" length="255">
+
+			</property>
+
+			<property name="role" column="rolex" length="20">
+
+			</property>
+
+			<bag name="users" table="OSUser_OSGroup">
+
+				<key column="groups">
+
+				</key>
+
+				<many-to-many class="edu.bj.model.OSUser" column="users"
+					outer-join="auto" />
+
+			</bag>
+
+			<bag name="permissions" lazy="true" cascade="all">
+
+				<key column="groupx">
+
+				</key>
+
+				<one-to-many class="edu.bj.model.OSPermission" />
+
+			</bag>
+
+		</joined-subclass>
+
+		<joined-subclass name="edu.bj.model.OSDomain" lazy="true">
+
+			<key column="BOLD_ID" />
+
+			<property name="boldType" column="BOLD_TYPE"
+				update="false">
+
+			</property>
+
+			<property name="name" column="name" length="255">
+
+			</property>
+
+			<property name="orderx" column="orderx" length="5"
+				not-null="true">
+
+			</property>
+
+			<property name="icon" column="icon" length="10">
+
+			</property>
+
+			<property name="revision" column="revision" length="10"
+				not-null="true">
+
+			</property>
+
+			<property name="revisionAuthor" column="revisionAuthor"
+				length="255" not-null="true">
+
+			</property>
+
+			<property name="revisionDate" column="revisionDate"
+				length="23">
+
+			</property>
+
+			<bag name="resources" lazy="true" cascade="all"
+				order-by="domainx_O">
+
+				<key column="domainx">
+
+				</key>
+
+				<one-to-many class="edu.bj.model.OSResource" />
+
+			</bag>
+
+		</joined-subclass>
+
+		<joined-subclass name="edu.bj.model.OSFilter" lazy="true">
+
+			<key column="BOLD_ID" />
+
+			<property name="boldType" column="BOLD_TYPE"
+				update="false">
+
+			</property>
+
+			<property name="autoEvaluate" not-null="true">
+
+			</property>
+
+			<property name="description" length="255">
+
+			</property>
+
+			<property name="designExpression" length="255">
+
+			</property>
+
+			<property name="evaluateInPS" not-null="true">
+
+			</property>
+
+			<property name="expression" length="255">
+
+			</property>
+
+			<property name="inheritsRestrictions">
+
+			</property>
+
+			<bag name="ownedFields" order-by="filterx_O">
+
+				<key column="filterx">
+
+				</key>
+
+				<one-to-many class="edu.bj.model.OSFilterField" />
+
+			</bag>
+
+			<bag name="ownedRestrictions" order-by="filterx_O">
+
+				<key column="filterx">
+
+				</key>
+
+				<one-to-many class="edu.bj.model.OSFilterRestriction" />
+
+			</bag>
+
+			<many-to-one name="ancestor" column="ancestor"
+				not-null="false">
+
+			</many-to-one>
+
+			<bag name="descendants">
+
+				<key column="ancestor">
+
+				</key>
+
+				<one-to-many class="edu.bj.model.OSFilter" />
+
+			</bag>
+
+		</joined-subclass>
+
+		<joined-subclass name="edu.bj.model.OSPermission" lazy="true">
+
+			<key column="BOLD_ID" />
+
+			<property name="boldType" column="BOLD_TYPE"
+				update="false">
+
+			</property>
+
+			<many-to-one name="action" column="action" not-null="true"
+				cascade="none" insert="false" update="false">
+
+			</many-to-one>
+
+			<many-to-one name="group" column="groupx" not-null="true"
+				cascade="none" insert="false" update="false">
+
+			</many-to-one>
+
+			<many-to-one name="resource" column="resource"
+				not-null="true" cascade="none" insert="false" update="false">
+
+			</many-to-one>
+
+		</joined-subclass>
+
+		<joined-subclass name="edu.bj.model.Nacionalidade"
+			lazy="true">
+
+			
+			<key column="BOLD_ID" />
+
+			<property name="boldType" column="BOLD_TYPE"
+				update="false">
+
+			</property>
+
+			<property name="ativo">
+
+			</property>
+
+			<property name="nome">
+
+			</property>
+
+		</joined-subclass>
+
+		<joined-subclass name="edu.bj.model.OSFilterDefinition"
+			lazy="true">
+
+			
+			<key column="BOLD_ID" />
+
+			<property name="boldType" column="BOLD_TYPE"
+				update="false">
+
+			</property>
+
+			<property name="language" length="20" not-null="true">
+
+			</property>
+
+			<property name="name" length="255">
+
+			</property>
+
+			<property name="reviewed">
+
+			</property>
+
+			<property name="revision">
+
+			</property>
+
+			<property name="revisionAuthor" length="255"
+				not-null="true">
+
+			</property>
+
+			<property name="revisionDate">
+
+			</property>
+
+			<many-to-one name="frameKind" column="frameKind"
+				lazy="proxy">
+
+			</many-to-one>
+
+			<many-to-one name="defaultFilter" unique="true"
+				foreign-key="defaultFilter">
+
+			</many-to-one>
+
+			<bag name="filters" cascade="all"
+				order-by="x_filters_OSFilterDefinition_O">
+
+				<key column="x_filters_OSFilterDefinition">
+
+				</key>
+
+				<one-to-many class="edu.bj.model.OSFilter" />
+
+			</bag>
+
+			<bag name="resources">
+
+				<key column="filterDefinition">
+
+				</key>
+
+				<one-to-many class="edu.bj.model.OSResource" />
+
+			</bag>
+
+		</joined-subclass>
+
+		<joined-subclass name="edu.bj.model.OSResourceKind"
+			lazy="true">
+
+			
+			<key column="BOLD_ID" />
+
+			<property name="boldType" column="BOLD_TYPE"
+				update="false">
+
+			</property>
+
+			<property name="name" not-null="true">
+
+			</property>
+
+			<property name="proxyClassName" not-null="true">
+
+			</property>
+
+			<bag name="resources" lazy="true" cascade="all">
+
+				
+				<key column="resourceKind">
+
+				</key>
+
+				
+				<one-to-many class="edu.bj.model.OSResource" />
+
+			</bag>
+
+			<bag name="specialAction" lazy="true" cascade="none">
+
+				
+				<key column="specialResourceKind">
+
+				</key>
+
+				
+				<one-to-many class="edu.bj.model.OSAction" />
+
+			</bag>
+
+		</joined-subclass>
+
+		<joined-subclass name="edu.bj.model.EquipProtecao"
+			lazy="true">
+
+			
+			<key column="BOLD_ID" />
+
+			<property name="boldType" column="BOLD_TYPE"
+				update="false">
+
+			</property>
+
+			<property name="ativo" not-null="true">
+
+			</property>
+
+			<property name="codigo" not-null="true">
+
+			</property>
+
+			<property name="diasSubstituicao" not-null="true">
+
+			</property>
+
+			<property name="nome" length="50" not-null="true">
+
+			</property>
+
+			<property name="qtdDisponivel">
+
+			</property>
+
+		</joined-subclass>
+
+		<joined-subclass name="edu.bj.model.SolicitacaoEquipProtecao"
+			lazy="true">
+
+			
+			<key column="BOLD_ID" />
+
+			<property name="boldType" column="BOLD_TYPE"
+				update="false">
+
+			</property>
+
+			<property name="ativo" not-null="true">
+
+			</property>
+
+			<many-to-one name="colaborador" column="colaborador"
+				not-null="true">
+
+			</many-to-one>
+
+			<property name="data" not-null="true">
+
+			</property>
+
+			<property name="dataEntrega">
+
+			</property>
+
+			<many-to-one name="equipamento" column="equipamento"
+				not-null="true">
+
+			</many-to-one>
+
+			<property name="numero" not-null="true">
+
+			</property>
+
+			<property name="observacao" length="255">
+
+			</property>
+
+			<property name="quantidade" not-null="true">
+
+			</property>
+
+		</joined-subclass>
+
+		<joined-subclass name="edu.bj.model.OSFilterRestriction"
+			lazy="true">
+
+			
+			<key column="BOLD_ID" />
+
+			<property name="boldType" column="BOLD_TYPE"
+				update="false">
+
+			</property>
+
+			<property name="blankDates" not-null="true">
+
+			</property>
+
+			<property name="controlLabel" not-null="true">
+
+			</property>
+
+			<property name="defaultResult" not-null="true">
+
+			</property>
+
+			<property name="expression" not-null="true">
+
+			</property>
+
+			<property name="listExpression" not-null="true">
+
+			</property>
+
+			<bag name="listItems" lazy="true" cascade="all"
+				order-by="restriction_O">
+
+				
+				<key column="restriction">
+
+				</key>
+
+				
+				<one-to-many class="edu.bj.model.OSFilterListItem" />
+
+			</bag>
+
+			<property name="listPresentation" not-null="true">
+
+			</property>
+
+			<property name="listSetValue" not-null="true">
+
+			</property>
+
+			<many-to-one name="filter" column="filterx" cascade="none"
+				insert="false" update="false">
+
+			</many-to-one>
+
+		</joined-subclass>
+
+		<joined-subclass name="edu.bj.model.Colaborador" lazy="true">
+
+			
+			<key column="BOLD_ID" />
+
+			<property name="boldType" column="BOLD_TYPE"
+				update="false">
+
+			</property>
+
+			<property name="cracha">
+
+			</property>
+
+			<property name="dtAdmissao">
+
+			</property>
+
+			<property name="profissionalGoldway" not-null="true">
+
+			</property>
+
+			<one-to-one name="pessoa" fetch="select"
+				property-ref="colaborador" lazy="proxy">
+
+			</one-to-one>
+
+		</joined-subclass>
+
+		<joined-subclass name="edu.bj.model.OSFrameKind" lazy="true">
+
+			
+			<key column="BOLD_ID" />
+
+			<property name="boldType" column="BOLD_TYPE"
+				update="false">
+
+			</property>
+
+			<property name="frameClassName" length="255">
+
+			</property>
+
+			<property name="name" length="255">
+
+			</property>
+
+		</joined-subclass>
+
+		<joined-subclass name="edu.bj.model.OSFilterListItem"
+			lazy="true">
+
+			
+			<key column="BOLD_ID" />
+			
+		
+			
+			<property name="boldType" column="BOLD_TYPE"
+				update="false">
+
+			</property>
+
+			<property name="description" not-null="true">
+
+			</property>
+
+			<property name="value" column="valuex" not-null="true">
+
+			</property>
+
+		</joined-subclass>
+
+		<joined-subclass name="edu.bj.model.Pessoa" lazy="true">
+
+			
+			<key column="BOLD_ID" />
+
+			<property name="boldType" column="BOLD_TYPE"
+				update="false">
+
+			</property>
+
+			<property name="dtCadastro">
+
+			</property>
+
+			<property name="estrangeira" not-null="true">
+
+			</property>
+
+			<property name="isRespFinanceiro" not-null="true">
+
+			</property>
+
+			<property name="nome" length="255" not-null="true">
+
+			</property>
+
+			<property name="nomeUsual" length="20" not-null="true">
+
+			</property>
+
+			<joined-subclass name="edu.bj.model.PessoaFisica"
+				lazy="true">
+
+				
+				<key column="BOLD_ID" />
+
+				<property name="boldType" column="BOLD_TYPE"
+					update="false">
+
+				</property>
+
+				<many-to-one name="colaborador" unique="true"
+					fetch="select" foreign-key="colaborador" lazy="proxy">
+
+				</many-to-one>
+
+				<property name="cpf">
+
+				</property>
+
+				<property name="dtNascimento">
+
+				</property>
+
+				<property name="rg" not-null="true">
+
+				</property>
+
+				<property name="sexo" not-null="true">
+
+				</property>
+
+			</joined-subclass>
+
+		</joined-subclass>
+
+		<joined-subclass name="edu.bj.model.OSResource" lazy="true">
+
+			
+			<key column="BOLD_ID" />
+
+			<property name="boldType" column="BOLD_TYPE"
+				update="false">
+
+			</property>
+
+			<property name="editorClassName">
+
+			</property>
+
+			<property name="name" not-null="true">
+
+			</property>
+
+			<property name="objectClassName" not-null="true">
+
+			</property>
+
+			<bag name="defaultActions"
+				table="OSResource_DefaultOSAction" order-by="defaultResources_O">
+
+				<key column="defaultResources">
+
+				</key>
+
+				
+				<many-to-many class="edu.bj.model.OSAction"
+					column="defaultActions" outer-join="auto" />
+
+			</bag>
+
+			<bag name="permissions" lazy="true" cascade="all">
+
+				
+				<key column="resource">
+
+				</key>
+
+				
+				<one-to-many class="edu.bj.model.OSPermission" />
+
+			</bag>
+
+			<property name="platform" not-null="true">
+
+			</property>
+
+			<property name="revision" not-null="true">
+
+			</property>
+
+			<property name="revisionAuthor" not-null="true">
+
+			</property>
+
+			<property name="revisionDate">
+
+			</property>
+
+			<bag name="specialAction" lazy="true" cascade="none">
+
+				
+				<key column="specialResource">
+
+				</key>
+
+				
+				<one-to-many class="edu.bj.model.OSAction" />
+
+			</bag>
+
+			<property name="stream">
+
+			</property>
+
+			<property name="useProxy" not-null="true">
+
+			</property>
+
+			<many-to-one name="domain" column="domainx" not-null="true"
+				cascade="none" insert="false" update="false">
+
+			</many-to-one>
+
+			<many-to-one name="filterDefinition"
+				column="filterDefinition" cascade="none" insert="false"
+				update="false">
+
+			</many-to-one>
+
+			<many-to-one name="resourceKind" column="resourceKind"
+				not-null="true" cascade="none" insert="false" update="false">
+
+			</many-to-one>
+
+		</joined-subclass>
+
+	</class>
+
+</hibernate-mapping>
+

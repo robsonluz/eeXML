@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Main-Class: br.ufpr.tc.glushkov.vs1.visual.FormMain
+ClassPath: lib/ant.jar,
+ lib/crimson.jar,
+ lib/jakarta-ant-1.4.1-optional.jar,
+ lib/jaxp.jar,
+ lib/junit.jar,
+ lib/log4j.jar,
+ lib/log4j-core.jar,
+ lib/patbinfree153.jar,
+ lib/xerces.jar
+
+
